@@ -35,6 +35,9 @@
       <!-- header -->
       <header>
          <div class="header">
+            <div class="whatsapp_button">
+               <a href="https://wa.me/0096176605574" target="-blank"> <img src="images/whatsapp_logo.png" width="50rem"></a>
+            </div>
             <div class="container-fluid">
                <div class="row d_flex">
                   <div class=" col-md-2 col-sm-3 col logo_section">
@@ -66,7 +69,7 @@
                                  <a class="nav-link" href="portfolio.html">Our Projects </a>
                               </li>
                               <li class="nav-item active">
-                                 <a class="nav-link" href="contact.html">Contact Us</a>
+                                 <a class="nav-link-selected" >Contact Us</a>
                               </li>
                            </ul>
                         </div>
@@ -88,19 +91,24 @@
                   <form id="request" class="main_form">
                      <div class="row">
                         <div class="col-md-12">
-                           <input class="contactus" placeholder="Name" type="type" name=" Name"> 
+                           <input class="contactus" required placeholder="First Name" type="type" name="First Name"> 
                         </div>
                         <div class="col-md-12">
-                           <input class="contactus" placeholder="Phone Number" type="type" name="Phone Number">                          
+                           <input class="contactus" required placeholder="Last Name" type="type" name=" Last name"> 
                         </div>
                         <div class="col-md-12">
-                           <input class="contactus" placeholder="Email" type="type" name="Email">                          
+                           <input class="contactus" required placeholder="Phone Number" type="type" name="Phone Number">                          
                         </div>
                         <div class="col-md-12">
-                           <textarea class="textarea" placeholder="Message" type="type" Message="Name"></textarea>
+                           <input class="contactus" required placeholder="Email" type="type" name="Email">                          
                         </div>
                         <div class="col-md-12">
-                           <button class="send_btn">Send Now</button>
+                           <textarea class="textarea" required placeholder="Message" type="type" Message="Name"></textarea>
+                        </div>
+                        <div class="col-md-12">
+                           <button type="submit" class="send_btn">Send Now</button>
+                           <button type="reset" class="send_btn">Reset</button>
+
                         </div>
                      </div>
                   </form>

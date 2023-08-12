@@ -321,9 +321,9 @@ header
 
 .header {
      width: 100%;
-     background: rgba(39, 43, 44, 0.87);
+     background: rgba(28, 144, 173, 0.87);
      height: 106px;
-     padding: 37px 30px;
+     padding: 20px 40px;
      position: absolute;
      z-index: 999;
      box-shadow: 3px 0 13px rgba(30, 30, 30, 0.90);
@@ -347,6 +347,13 @@ menu section
      font-weight: 400;
 }
 
+.navigation.navbar-dark .navbar-nav .nav-link-selected {
+     padding: 0px 30px;
+     color: #fff;
+     font-size: 25px;
+     line-height: 20px;
+     font-weight: 400;
+     }
 .navigation.navbar-dark .navbar-nav .nav-link:focus,
 .navigation.navbar-dark .navbar-nav .nav-link:hover {
      color: #fff;
@@ -393,7 +400,7 @@ ul.email li i {
 /** banner_main **/
 
 #top_section {
-     background-image: url('../images/banner.jpg');
+     background-image: url('../images/Banner_1919x1078.jpg');
      background-size: cover;
      background-repeat: no-repeat;
      padding-top: 120px;
@@ -432,7 +439,7 @@ ul.email li i {
 }
 
 .bluid {
-     margin-top: 10px;
+     margin-top: 0 auto;
      font-family: 'Open Sans', sans-serif;
      text-align: left;
 }
@@ -443,6 +450,7 @@ ul.email li i {
      line-height: 110px;
      font-weight: bold;
      padding-bottom: 25px;
+     text-shadow: 4px 4px 4px #000;
 }
 
 .banner_main .bluid p {
@@ -451,6 +459,7 @@ ul.email li i {
      font-weight: 500;
      padding-bottom: 50px;
      font-size: 17px;
+     text-shadow: 30% 30% 30% #000;
 }
 
 .banner_main .bluid .read_more {
@@ -997,8 +1006,9 @@ ul.email li i {
 /** footer **/
 
 .footer {
-     background: #222222;
+     background: rgba(28, 144, 173, 0.600);
      padding-top: 90px
+     
 }
 
 .newslatter_form {
@@ -1140,3 +1150,43 @@ ul.social_icon li a:hover {
      justify-content: center;
      align-items: center;
      }
+
+.whatsapp_button{
+     background-size: 50px;
+     background-repeat: no-repeat;
+     position: fixed;
+     padding-top: 100px;
+     height: 100px;
+     width: 96%;
+     background-position: right;
+     align-items: end;
+     align-self: flex-end;
+     text-align: end;
+}
+
+.whatsapp_button :hover{
+     animation-name: spin_vibration;
+     animation-duration: 1s;
+     animation-timing-function: ease-in-out;
+     animation-delay: 0s;
+     animation-iteration-count: 100;  
+}
+
+
+@keyframes spin_vibration {
+     0% {
+         transform: translateX(0) rotate(0deg) scale(1);
+     }
+     25% {
+         transform: translateX(-3px);
+     }
+     50% {
+         transform: translateX(3px) rotate(180deg) scale(1.5);
+     }
+     75% {
+         transform: translateX(-3px);
+     }
+     100% {
+         transform: translateX(0) rotate(360deg) scale(1);
+     }
+ }
