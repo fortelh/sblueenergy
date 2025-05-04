@@ -158,15 +158,12 @@
       <script src="js/bootstrap.bundle.min.js"></script>
       <script src="js/jquery-3.0.0.min.js"></script>
       <script src="js/custom.js"></script>
-
       <script>
          document.getElementById("contactForm").addEventListener("submit", async (e) => {
             e.preventDefault();
 
             const formData = {
-               firstName: e.target.firstName.value,
-               lastName: e.target.lastName.value,
-               phoneNumber: e.target.phoneNumber.value,
+               name: `${e.target.firstName.value} ${e.target.lastName.value}`,
                email: e.target.email.value,
                message: e.target.message.value,
             };
