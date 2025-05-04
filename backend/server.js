@@ -1,76 +1,49 @@
-// Required modules
-const express = require('express');
-const nodemailer = require('nodemailer');
-const cors = require('cors');
-const sqlite3 = require('sqlite3').verbose();
+const express = require("express");
+const bodyParser = require("body-parser");
+const nodemailer = require("nodemailer");
+require("dotenv").config();
 
-// Set up Express app
 const app = express();
-const port = 3000;
 
 // Middleware
-app.use(cors());
-app.use(express.json());
+app.use(bodyParser.json());
 
-// Set up SQLite database
-const db = new sqlite3.Database('./contact_form.db', (err) => {
-  if (err) {
-    console.error('Error opening database', err);
-  } else {
-    console.log('Connected to SQLite database');
-  }
-});
+// Route to handle form submission
+app.post("/api/contact", async (req, res) => {
+    const { name, email, message } = req.body;
 
-// Create a table to store form submissions
-db.run(`
-  CREATE TABLE IF NOT EXISTS submissions (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    email TEXT,
-    message TEXT
-  )
-`);
-
-// POST route to handle contact form submissions
-app.post('/submit', (req, res) => {
-  const { name, email, message } = req.body;
-
-  // Insert data into SQLite database
-  db.run(`
-    INSERT INTO submissions (name, email, message)
-    VALUES (?, ?, ?)
-  `, [name, email, message], function(err) {
-    if (err) {
-      return res.status(500).send('Error saving data');
+    if (!name || !email || !message) {
+        return res.status(400).json({ error: "All fields are required" });
     }
 
-    // Send a confirmation email
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'your-email@gmail.com',
-        pass: 'your-email-password'
-      }
-    });
+    try {
+        // Configure nodemailer
+        const transporter = nodemailer.createTransport({
+            service: "gmail", // Use your email provider
+            auth: {
+                user: process.env.EMAIL_USER, // Replace with your email
+                pass: process.env.EMAIL_PASSWORD, // Replace with your email password or app password
+            },
+        });
 
-    const mailOptions = {
-      from: 'your-email@gmail.com',
-      to: email,
-      subject: 'Confirmation of Your Message',
-      text: `Hi ${name},\n\nThank you for reaching out! We received your message: "${message}"\n\nBest regards,\nS-Blue Energy Team`
-    };
+        // Email content
+        const mailOptions = {
+            from: email,
+            to: process.env.EMAIL_USER, // Replace with your email
+            subject: `New Contact Form Submission from ${name}`,
+            text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
+        };
 
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        return res.status(500).send('Error sending email');
-      }
-      console.log('Email sent: ' + info.response);
-      res.status(200).send('Submission successful and email sent!');
-    });
-  });
+        // Send email
+        await transporter.sendMail(mailOptions);
+
+        res.status(200).json({ message: "Email sent successfully!" });
+    } catch (error) {
+        console.error("Error sending email:", error);
+        res.status(500).json({ error: "Failed to send email" });
+    }
 });
 
-// Start server
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
+// Start the server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
